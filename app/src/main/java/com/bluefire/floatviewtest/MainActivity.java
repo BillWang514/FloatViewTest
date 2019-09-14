@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        newWindow();
+        createRemovedBtn();
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void newWindow() {
+    private void createRemovedBtn() {
         final Button button = new Button(this);
         button.setText("移动按钮");
         final WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -43,17 +43,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                int rawX = (int) event.getRawX();
+                int rawY = (int) event.getRawY();
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        lastX = (int) event.getRawX();
-                        lastY = (int) event.getRawY();
+                        lastX = rawX;
+                        lastY = rawY;
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        layoutParams.x += (int) event.getRawX() - lastX;
-                        layoutParams.y += (int) event.getRawY() - lastY;
+                        layoutParams.x += rawX - lastX;
+                        layoutParams.y += rawY - lastY;
                         windowManager.updateViewLayout(v, layoutParams);
-                        lastX = (int) event.getRawX();
-                        lastY = (int) event.getRawY();
+                        lastX = rawX;
+                        lastY = rawY;
                         break;
                 }
                 return true;

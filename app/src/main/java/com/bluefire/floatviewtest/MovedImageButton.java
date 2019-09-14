@@ -61,13 +61,13 @@ public class MovedImageButton extends android.support.v7.widget.AppCompatImageBu
                 //offsetTopAndBottom(offsetY);
                 break;
             case MotionEvent.ACTION_UP:
-                moveHide(event.getRawX(), event.getRawY());
+                adsorbAnim(event.getRawX(), event.getRawY());
                 break;
         }
         return super.onTouchEvent(event);
     }
 
-    private void moveHide(float rawX, float rawY){
+    private void adsorbAnim(float rawX, float rawY){
         //靠顶吸附
         if (rawY <= MeasureUtil.dp2px(getContext(),200)){//注意rawY包含了标题栏的高
             animate().setDuration(400)
